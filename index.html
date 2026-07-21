@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+
+  <!--
+    viewport-fit=cover + variáveis safe-area (no style.css) garantem que o
+    jogo respeite o "notch"/barra de gestos em iPhones mais novos.
+    maximum-scale=1 + user-scalable=no evitam zoom acidental por toque
+    duplo, importante numa mecânica onde o toque é a única ação do jogo.
+  -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+
+  <title>A Jornada de Benjamin: O Leão Solar</title>
+  <meta name="description" content="Uma aventura solar sobre coragem, sabedoria, alegria e amor." />
+
+  <!-- Cor da barra de status do navegador mobile, alinhada ao tema noturno do painel -->
+  <meta name="theme-color" content="#0F1B33" />
+
+  <!--
+    Fontes: par de fontes escolhido para casar com a identidade do painel
+    (título afetuoso/heroico + corpo de texto legível em tela pequena).
+    Carregadas via Google Fonts com font-display:swap para não bloquear
+    a primeira renderização em redes de evento mais lentas.
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!--
+    #app é o único container que o jogo manipula.
+    Cada "tela" (título, introdução, fases, etc.) será renderizada aqui
+    pelo sceneManager.js nos próximos módulos — nada é fixo no HTML além
+    disso, para manter tudo controlado via JavaScript modular.
+  -->
+  <main id="app" role="application" aria-label="A Jornada de Benjamin: O Leão Solar">
+  </main>
+
+  <!--
+    type="module" habilita import/export nativo do navegador,
+    permitindo dividir o código em vários arquivos pequenos sem
+    precisar de nenhuma ferramenta de build (ver ESPECIFICAÇÃO_TECNICA.md).
+  -->
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
