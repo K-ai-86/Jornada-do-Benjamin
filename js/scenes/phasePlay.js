@@ -231,13 +231,14 @@ export const phasePlayScene = {
       onCharacterUpdate: applyCharacterState,
       onObstaclesUpdate: syncObstacleElements,
       onItemsUpdate: syncItemElements,
-      onItemCollected(totalCollected, lastCollectedItem) {
+     onItemCollected(totalCollected, lastCollectedItem) {
+      console.log("onItemCollected chamado na cena", totalCollected, lastCollectedItem);
       // Passa o total e a posição X e altura do item que acabou de ser pego
       const itemX = lastCollectedItem ? lastCollectedItem.xPx : undefined;
       const itemHeight = lastCollectedItem ? lastCollectedItem.heightPx : undefined;
+      console.log("valores calculados:", itemX, itemHeight);
       updateHud(totalCollected, itemX, itemHeight);
     },
-
       onComplete() {
         goTo(config.nextSceneId, { phaseId, itemsCollected: totalItemsCollected });
       },
