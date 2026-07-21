@@ -324,6 +324,7 @@ export function createGameEngine({
       if (horizontalOverlap && verticalOverlap) {
         item.collected = true;
         collectedItemsCount += 1;
+        console.log("ITEM COLETADO!", collectedItemsCount);
         if (typeof onItemCollected === "function") {
           // Repassa também o item coletado (posição X e altura), para que
           // a cena possa desenhar o efeito "+1" exatamente onde o item
