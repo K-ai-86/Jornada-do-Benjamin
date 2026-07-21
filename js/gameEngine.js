@@ -74,7 +74,7 @@ let nextItemId = 1;
  */
 export function createGameEngine({
   durationSeconds,
-  scrollSpeedPxPerSecond = 85,
+  scrollSpeedPxPerSecond = 110,
   stageWidthPx = typeof window !== "undefined" ? window.innerWidth : 400,
   obstacleWidthPx = OBSTACLE_WIDTH_PX,
   obstacleHeightPx = OBSTACLE_HEIGHT_PX,
