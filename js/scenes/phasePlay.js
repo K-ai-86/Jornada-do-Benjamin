@@ -207,7 +207,7 @@ export const phasePlayScene = {
       // Remove o elemento do DOM assim que a animação termina (600ms)
       window.setTimeout(() => {
         floatText.remove();
-      }, 600);
+      }, 3000);
     }
   }
 
