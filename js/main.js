@@ -42,11 +42,31 @@ import { endingScene } from "./scenes/ending.js";
  * sceneManager, que só mexe no conteúdo de dentro de #app.
  */
 function initBackgroundMusic() {
-  function handleFirstInteraction() {
-    startMusic();
-    document.removeEventListener("pointerdown", handleFirstInteraction);
+  const INTERACTION_EVENT_NAMES = ["pointerdown", "touchend", "click", "keydown"];
+  let musicUnlocked = false;
+
+  function removeInteractionListeners() {
+    for (const eventName of INTERACTION_EVENT_NAMES) {
+      document.removeEventListener(eventName, handleInteraction);
+    }
   }
-  document.addEventListener("pointerdown", handleFirstInteraction, { once: true });
+
+  function handleInteraction() {
+    if (musicUnlocked) return;
+    startMusic()
+      .then(() => {
+        musicUnlocked = true;
+        removeInteractionListeners();
+      })
+      .catch(() => {
+        // Ainda bloqueado nesta tentativa — os listeners continuam
+        // ativos para tentar de novo no próximo toque/clique.
+      });
+  }
+
+  for (const eventName of INTERACTION_EVENT_NAMES) {
+    document.addEventListener(eventName, handleInteraction);
+  }
 
   const muteButton = document.getElementById("btn-mute-toggle");
   if (!muteButton) {
