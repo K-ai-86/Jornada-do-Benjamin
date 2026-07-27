@@ -20,12 +20,46 @@
  */
 
 import { createSceneManager } from "./sceneManager.js";
+import { startMusic, toggleMute } from "./audioManager.js";
 import { titleScene } from "./scenes/title.js";
 import { introScene } from "./scenes/intro.js";
 import { phasePlayScene } from "./scenes/phasePlay.js";
 import { phaseRewardScene } from "./scenes/phaseReward.js";
 import { finalTransformationScene } from "./scenes/finalTransformation.js";
 import { endingScene } from "./scenes/ending.js";
+
+/**
+ * Liga a trilha sonora de fundo e o botão de mudo.
+ *
+ * A música só pode começar a tocar a partir de uma interação real do
+ * usuário (regra de autoplay dos navegadores) — por isso o primeiro
+ * "pointerdown" em qualquer lugar da página (não importa em qual cena)
+ * dispara `startMusic()`, e esse listener se remove sozinho depois de
+ * usado uma vez.
+ *
+ * O botão de mudo (#btn-mute-toggle) vive fora de #app, direto no
+ * index.html — assim ele nunca é apagado pelas trocas de cena do
+ * sceneManager, que só mexe no conteúdo de dentro de #app.
+ */
+function initBackgroundMusic() {
+  function handleFirstInteraction() {
+    startMusic();
+    document.removeEventListener("pointerdown", handleFirstInteraction);
+  }
+  document.addEventListener("pointerdown", handleFirstInteraction, { once: true });
+
+  const muteButton = document.getElementById("btn-mute-toggle");
+  if (!muteButton) {
+    console.warn("[Benjamin] Botão de mudo (#btn-mute-toggle) não encontrado no index.html.");
+    return;
+  }
+
+  muteButton.addEventListener("click", () => {
+    const muted = toggleMute();
+    muteButton.textContent = muted ? "🔇" : "🔊";
+    muteButton.setAttribute("aria-pressed", String(muted));
+  });
+}
 
 function init() {
   const appRoot = document.getElementById("app");
@@ -34,6 +68,8 @@ function init() {
     console.error("[Benjamin] Elemento #app não encontrado no index.html.");
     return;
   }
+
+  initBackgroundMusic();
 
   const sceneManager = createSceneManager(appRoot);
 
