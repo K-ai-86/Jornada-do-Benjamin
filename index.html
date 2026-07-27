@@ -43,6 +43,20 @@
   </main>
 
   <!--
+    Botão de mudo/som: fica FORA de #app de propósito, para sobreviver
+    às trocas de cena do sceneManager (que só substitui o conteúdo de
+    dentro de #app). Assim, o mesmo botão continua no lugar do início
+    ao fim do jogo, sem precisar ser recriado em cada tela.
+  -->
+  <button
+    type="button"
+    id="btn-mute-toggle"
+    class="mute-toggle"
+    aria-label="Ativar ou desativar a música"
+    aria-pressed="false"
+  >🔊</button>
+
+  <!--
     type="module" habilita import/export nativo do navegador,
     permitindo dividir o código em vários arquivos pequenos sem
     precisar de nenhuma ferramenta de build (ver ESPECIFICAÇÃO_TECNICA.md).
