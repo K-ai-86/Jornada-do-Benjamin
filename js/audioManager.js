@@ -53,8 +53,9 @@ function getAudioElement() {
  */
 export function startMusic() {
   const audio = getAudioElement();
-  if (!audio.paused) return;
-  audio.play().catch(() => {
+  if (!audio.paused) return Promise.resolve();
+  return audio.play();
+}
     // Autoplay bloqueado pelo navegador (ex.: chamada não veio de uma
     // interação real) — a música começa no próximo toque do usuário.
   });
