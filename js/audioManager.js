@@ -48,17 +48,17 @@ function getAudioElement() {
 /**
  * Inicia a reprodução da trilha de fundo. Sem efeito se já estiver
  * tocando. Deve ser chamada a partir de uma interação do usuário
- * (toque/clique) — chamadas fora desse contexto são ignoradas
- * silenciosamente pelo navegador (ver comentário acima).
+ * (toque/clique) — navegadores móveis costumam ser mais rígidos que o
+ * desktop com essa exigência, e uma rede mais lenta pode atrasar o
+ * carregamento bem na hora do toque, fazendo a primeira tentativa
+ * falhar. Por isso esta função RETORNA a Promise de audio.play(): quem
+ * chamar pode saber se deu certo e, se não deu, tentar de novo no
+ * próximo toque (ver main.js — não paramos de tentar após uma falha).
  */
 export function startMusic() {
   const audio = getAudioElement();
   if (!audio.paused) return Promise.resolve();
   return audio.play();
-}
-    // Autoplay bloqueado pelo navegador (ex.: chamada não veio de uma
-    // interação real) — a música começa no próximo toque do usuário.
-  });
 }
 
 /**
